@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!-- Charset e viewport: viewport-fit=cover permite o layout ocupar toda a tela em
+     celulares com notch, e a ausência de "maximum-scale" garante que o usuário
+     continue podendo dar zoom (bloquear zoom prejudica a nota de SEO mobile). -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<!-- ===================== SEO: Title & Meta ===================== -->
+<!-- ===================== SEO: Title & Meta =====================
+     Título e descrição são o que aparece no resultado de busca do Google.
+     O canonical evita que o Google veja a mesma página em duas URLs
+     diferentes como conteúdo duplicado. O favicon usa um SVG embutido
+     em Base64/URL-encode, então não depende de nenhum arquivo externo. -->
 <title>Engenharia e Tecnologia em Sorocaba | CERNE Escola Técnica</title>
 <meta name="description" content="Escola de engenharia e tecnologia em Sorocaba/SP. Cursos de Engenharia de Software, Ciência de Dados, Automação e Cibersegurança. 92% de empregabilidade.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -14,7 +21,10 @@
 <meta name="theme-color" content="#12233E">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='2' y='2' width='36' height='36' fill='%2312233E'/%3E%3Cpath d='M10 30 L20 10 L30 30' fill='none' stroke='%23E85D2C' stroke-width='4'/%3E%3C/svg%3E">
 
-<!-- ===================== SEO: Open Graph / Twitter ===================== -->
+<!-- ===================== SEO: Open Graph / Twitter =====================
+     Controla como o link aparece quando compartilhado no WhatsApp, LinkedIn,
+     Twitter/X etc.: imagem, título e descrição próprios para compartilhamento
+     (podem ser diferentes do title/description usados no Google). -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CERNE Escola de Tecnologia e Engenharia">
 <meta property="og:title" content="Engenharia e Tecnologia em Sorocaba | CERNE">
@@ -30,7 +40,13 @@
 <meta name="twitter:description" content="Escola de engenharia e tecnologia em Sorocaba/SP. Cursos de Engenharia de Software, Ciência de Dados, Automação e Cibersegurança.">
 <meta name="twitter:image" content="https://ryanleme03.github.io/SEO---Web-Design/og-image.png">
 
-<!-- ===================== SEO: Dados estruturados (Schema.org) ===================== -->
+<!-- ===================== SEO: Dados estruturados (Schema.org) =====================
+     Os três blocos abaixo são "JSON-LD": dados que não aparecem visualmente
+     na página, mas ajudam o Google a entender o conteúdo e podem gerar
+     "rich snippets" (resultados mais ricos) na busca. -->
+
+<!-- Bloco 1: descreve a instituição em si (nome, endereço, telefone, redes
+     sociais) — usado pelo Google para montar o card de "Organização". -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -55,6 +71,8 @@
   ]
 }
 </script>
+<!-- Bloco 2: informa a "trilha" de navegação (breadcrumb) da página, para o
+     Google eventualmente mostrar esse caminho no resultado de busca. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,6 +83,9 @@
   ]
 }
 </script>
+<!-- Bloco 3: replica as perguntas da seção FAQ (mais abaixo no HTML). As
+     perguntas e respostas aqui precisam ser idênticas às visíveis na página,
+     senão o Google pode ignorar ou penalizar o rich snippet de FAQ. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -78,16 +99,27 @@
 }
 </script>
 
-<!-- ===================== Fontes (auto-hospedadas via Google Fonts, com fallback) ===================== -->
+<!-- ===================== Fontes (Google Fonts, com fallback) =====================
+     "preconnect" adianta a conexão com os servidores de fonte antes mesmo do
+     navegador saber que vai precisar delas, o que acelera o carregamento.
+     Se o Google Fonts falhar, o CSS já define fontes de sistema como fallback. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<!-- Folha de estilos principal do site (todo o CSS visual fica neste arquivo externo). -->
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- Link de acesso rápido: só aparece quando recebe foco pelo teclado (Tab),
+     permitindo pular o menu e ir direto para o conteúdo. Ajuda usuários de
+     leitor de tela e navegação por teclado. -->
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
+<!-- Cabeçalho fixo (sticky) com logo e menu principal. Em telas largas o menu
+     aparece na horizontal; abaixo de 880px vira um painel lateral, controlado
+     pelo checkbox #nav-toggle (efeito visual em CSS) e por initMobileMenu()
+     em script.js (efeitos de acessibilidade/fechamento automático). -->
 <header class="site">
   <div class="header-row">
     <a class="brand" href="/" aria-label="CERNE — página inicial">
@@ -114,7 +146,10 @@
 
 <main id="conteudo">
 
-  <!-- ===================== HERO ===================== -->
+  <!-- ===================== HERO =====================
+       Primeira seção visível da página (acima da dobra). Contém o único <h1>
+       do documento — cada página deve ter exatamente um H1, com a palavra-chave
+       principal — e uma "ficha técnica" (spec-sheet) com números de destaque. -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
@@ -135,7 +170,10 @@
     </div>
   </section>
 
-  <!-- ===================== CURSOS ===================== -->
+  <!-- ===================== CURSOS =====================
+       Grade com os 6 cursos de graduação. Cada curso é um <article> (conteúdo
+       que faz sentido sozinho) com H3 próprio e um link com texto único e
+       descritivo — evita o erro de SEO de vários links idênticos "saiba mais". -->
   <section id="cursos">
     <div class="wrap">
       <div class="section-head">
@@ -196,7 +234,10 @@
     </div>
   </section>
 
-  <!-- ===================== DIFERENCIAIS ===================== -->
+  <!-- ===================== DIFERENCIAIS =====================
+       "Régua de medição" (.ruler) puramente decorativa em CSS, reforçando a
+       identidade visual de prancheta/engenharia. Os 4 blocos usam ícones em
+       SVG inline (sem depender de nenhum arquivo de imagem externo). -->
   <section id="diferenciais" class="alt-bg">
     <div class="wrap">
       <div class="ruler" aria-hidden="true">
@@ -232,7 +273,10 @@
     </div>
   </section>
 
-  <!-- ===================== ESTRUTURA ===================== -->
+  <!-- ===================== ESTRUTURA =====================
+       Mistura duas fontes de imagem: um mapa esquemático em SVG (desenhado
+       à mão em código, sem arquivo externo) e, logo abaixo, uma galeria com
+       fotos reais de laboratório hospedadas no banco gratuito Pexels. -->
   <section id="estrutura">
     <div class="wrap campus-grid">
       <div>
@@ -263,9 +307,60 @@
         <figcaption>Fig. 01 — Disposição esquemática dos blocos A–D no campus de Sorocaba.</figcaption>
       </figure>
     </div>
+
+    <!--
+      Galeria de fotos reais dos laboratórios.
+      Fotos do banco gratuito Pexels (pexels.com), licença Pexels License:
+      uso livre, inclusive comercial, sem necessidade de atribuição.
+      Créditos deixados aqui como boa prática, mesmo não sendo obrigatórios.
+    -->
+    <div class="wrap">
+      <div class="gallery">
+        <figure>
+          <img
+            src="https://images.pexels.com/photos/15149837/pexels-photo-15149837/free-photo-of-laboratorio-laboratorio-de-ciencias-equipamentos-de-laboratorio-aparelho-de-laboratorio.jpeg?cs=tinysrgb&amp;dpr=1&amp;w=800"
+            alt="Bancada de laboratório com equipamentos de ciências e instrumentos de medição"
+            width="800" height="533" loading="lazy">
+          <figcaption>Bancada do laboratório de ciências — Bloco A</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://images.pexels.com/photos/15149836/pexels-photo-15149836/free-photo-of-laboratorio-laboratorio-de-ciencias-equipamentos-de-laboratorio.jpeg?cs=tinysrgb&amp;dpr=1&amp;w=800"
+            alt="Equipamentos de laboratório dispostos sobre bancada técnica"
+            width="800" height="533" loading="lazy">
+          <figcaption>Equipamentos técnicos do laboratório — Bloco A</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://images.pexels.com/photos/15149832/pexels-photo-15149832/free-photo-of-mesas-area-de-trabalho-ambiente-de-trabalho-interior-da-sala-de-aula.jpeg?cs=tinysrgb&amp;dpr=1&amp;w=800"
+            alt="Sala de aula com mesas organizadas para trabalho em grupo"
+            width="800" height="533" loading="lazy">
+          <figcaption>Sala de projetos para trabalho em grupo — Bloco B</figcaption>
+        </figure>
+      </div>
+
+      <!--
+        Player de áudio: vinheta sonora institucional (1,6s), 100% original,
+        sintetizada por código — nenhum trecho de música ou áudio de terceiros.
+        O botão customizado é controlado pela função initAudioPlayer() em script.js.
+      -->
+      <div class="audio-card">
+        <button id="audio-toggle" class="audio-btn" type="button" aria-pressed="false" aria-controls="vinheta">
+          <span class="audio-icon" aria-hidden="true">►</span>
+          <span class="visually-hidden audio-label">Ouvir vinheta institucional</span>
+        </button>
+        <span aria-hidden="true">
+          <span style="font-family:var(--font-body);color:#fff;font-size:.94rem;">Vinheta institucional CERNE</span>
+          <span class="audio-sub">Áudio original, 1,6s — assinatura sonora da escola</span>
+        </span>
+        <audio id="vinheta" src="vinheta-cerne.mp3" preload="none"></audio>
+      </div>
+    </div>
   </section>
 
-  <!-- ===================== DEPOIMENTOS ===================== -->
+  <!-- ===================== DEPOIMENTOS =====================
+       Cada <blockquote> usa <footer> para o nome do autor — marcação semântica
+       correta para citações, reconhecida por leitores de tela e buscadores. -->
   <section id="depoimentos" class="alt-bg">
     <div class="wrap">
       <div class="section-head">
@@ -289,7 +384,10 @@
     </div>
   </section>
 
-  <!-- ===================== PROCESSO DE INGRESSO ===================== -->
+  <!-- ===================== PROCESSO DE INGRESSO =====================
+       Única seção da página com numeração (01–04): aqui a ordem importa de
+       verdade (é um passo a passo real), o que justifica o uso dos números —
+       diferente de uma lista genérica, onde numerar tudo não ajudaria em nada. -->
   <section class="navy-bg" aria-labelledby="processo-titulo">
     <div class="wrap">
       <div class="section-head">
@@ -305,7 +403,10 @@
     </div>
   </section>
 
-  <!-- ===================== FAQ ===================== -->
+  <!-- ===================== FAQ =====================
+       Usa <details>/<summary> nativos do HTML — o "abrir/fechar pergunta"
+       funciona sem nenhuma linha de JavaScript. O texto de cada pergunta e
+       resposta é idêntico ao do JSON-LD "FAQPage" lá no <head>. -->
   <section id="faq">
     <div class="wrap">
       <div class="section-head">
@@ -333,7 +434,9 @@
     </div>
   </section>
 
-  <!-- ===================== CTA FINAL ===================== -->
+  <!-- ===================== CTA FINAL =====================
+       Chamada de ação curta antes do rodapé, para capturar quem rolou a
+       página inteira mas ainda não clicou em nenhum botão anterior. -->
   <section class="alt-bg final-cta">
     <div class="wrap">
       <h2>Pronto para ver o campus de perto?</h2>
@@ -341,7 +444,10 @@
     </div>
   </section>
 
-  <!-- ===================== CONTATO ===================== -->
+  <!-- ===================== CONTATO =====================
+       Endereço, telefone e e-mail marcados com a tag semântica <address>.
+       Os mesmos dados também aparecem no JSON-LD de "EducationalOrganization"
+       no <head>, para manter tudo consistente. -->
   <section id="contato">
     <div class="wrap contact-grid">
       <div>
@@ -370,6 +476,10 @@
   </section>
 </main>
 
+<!-- ===================== RODAPÉ =====================
+     Repete, de forma resumida, os principais links da página (cursos,
+     institucional, contato) — bom para SEO (mais contexto de navegação),
+     mas sem duplicar o menu inteiro do cabeçalho. -->
 <footer class="site">
   <div class="wrap">
     <div class="footer-grid">
@@ -417,6 +527,9 @@
   </div>
 </footer>
 
+<!-- Carrega toda a lógica JavaScript do site (menu mobile, player de áudio e
+     analytics do FAQ). O atributo "defer" faz o navegador baixar o arquivo em
+     paralelo, mas só executá-lo depois que o HTML terminar de carregar. -->
 <script src="script.js" defer></script>
 </body>
 </html>
